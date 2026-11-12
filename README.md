@@ -9,13 +9,13 @@
 ### ▶ PLAYER 1
 
 ```text
-╔══════════════════════════════════════╗
-║ NAME  : ACHMF                        ║
-║ CLASS : MOBILE & WEB DEVELOPER       ║
-║ GUILD : UPN VETERAN JAKARTA          ║
-║ QUEST : SHIP APPS PEOPLE LOVE        ║
-║ ITEM  : ☕ + 🐱                      ║
-╚══════════════════════════════════════╝
+╔═══════════════════════════════════╗
+║ NAME  : ACHMF                     ║
+║ CLASS : MOBILE & WEB DEVELOPER    ║
+║ GUILD : UPN VETERAN JAKARTA       ║
+║ QUEST : SHIP APPS PEOPLE LOVE     ║
+║ ITEM  : ☕ + 🐱                   ║
+╚═══════════════════════════════════╝
 ```
 
 ### ▶ INVENTORY
