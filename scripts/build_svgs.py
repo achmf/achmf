@@ -75,9 +75,11 @@ H_TXT = [("ACHMF", 230, 120, 40, "#39ff14", ""),
 F_TXT = [("GAME OVER", 420, 55, 28, "#ff3e88", ""),
          ("INSERT COIN TO CONTINUE", 420, 95, 12, "#ffd23f", ' class="blink"')]
 STATS = [("FRONTEND", 8), ("BACKEND", 6), ("MOBILE", 7), ("UI/UX", 5)]
+PLAYER_LABEL = "Player 1: ACHMF, Software Developer. " + ", ".join(
+    f"{l if '/' in l else l.capitalize()} {n}" for l, n in STATS) + " of 10."
 TITLES = ["INVENTORY", "SELECT STAGE", "PLAYER STATS", "HIGH SCORE", "CONTINUE?"]
 # subset must cover every glyph of every string used by every builder
-TEXT = "".join(t for t, *_ in H_TXT + F_TXT).replace("&amp;", "&") + "".join(
+TEXT = "".join(t for t, *_ in H_TXT + F_TXT)+ "".join(
     ["ACHMF", "SOFTWARE DEVELOPER", "P1 READY"] + [l for l, _ in STATS] + TITLES) + " "
 
 
@@ -97,21 +99,22 @@ def build_footer():
 
 def build_player():
     r = lambda x, y, w, h, c, cls="": f'<rect{cls} x="{x}" y="{y}" width="{w}" height="{h}" fill="{c}"/>'
-    b = r(40, 30, 200, 200, "#39ff14") + r(44, 34, 192, 192, "#1a1c2c") + sprite_rects(CAT, PAL, 60, 50, 10)
+    b = r(24, 30, 200, 200, "#39ff14") + r(28, 34, 192, 192, "#1a1c2c") + sprite_rects(CAT, PAL, 44, 50, 10)
     cur = "".join(r(x, y, 16, 4, "#ffd23f") + r(x if dx < 0 else x + 12, y if dy < 0 else y - 12, 4, 16, "#ffd23f")
-                  for x, y, dx, dy in ((32, 22, -1, -1), (232, 22, 1, -1), (32, 234, -1, 1), (232, 234, 1, 1)))
+                  for x, y, dx, dy in ((16, 22, -1, -1), (216, 22, 1, -1), (16, 234, -1, 1), (216, 234, 1, 1)))
     b += f'<g class="blink">{cur}</g>'
-    b += texts([("ACHMF", 280, 70, 28, "#39ff14", ""), ("SOFTWARE DEVELOPER", 280, 100, 12, "#00e5ff", "")])
+    b += texts([("ACHMF", 252, 70, 32, "#39ff14", ""), ("SOFTWARE DEVELOPER", 252, 104, 16, "#00e5ff", "")])
+    bx = 252 + 8 * 14 + 12  # bars start after the longest label
     for row, (label, n) in enumerate(STATS):
-        y = 135 + row * 25
-        b += texts([(label, 280, y, 10, "#f4f4f4", "")])
+        y = 140 + row * 28
+        b += texts([(label, 252, y, 14, "#f4f4f4", "")])
         for i in range(10):
-            x = 420 + i * 24
-            b += (f'<rect class="seg" x="{x}" y="{y - 11}" width="20" height="12" fill="#ff3e88" '
+            x = bx + i * 20
+            b += (f'<rect class="seg" x="{x}" y="{y - 12}" width="16" height="12" fill="#ff3e88" '
                   f'style="animation-delay:{row * 0.15 + i * 0.08:.2f}s"/>' if i < n
-                  else r(x, y - 11, 20, 12, "#2a2c3c"))
-    b += texts([("P1 READY", 800, 240, 10, "#ffd23f", ' class="blink"')], ' text-anchor="end"')
-    return svg(840, 260, b, "Player 1: ACHMF, Software Developer. Frontend 8, Backend 6, Mobile 7, UI/UX 5 of 10.")
+                  else r(x, y - 12, 16, 12, "#2a2c3c"))
+    b += texts([("P1 READY", 584, 258, 12, "#ffd23f", ' class="blink"')], ' text-anchor="end"')
+    return svg(600, 270, b, PLAYER_LABEL)
 
 
 def slug(label):
@@ -126,14 +129,15 @@ def build_title(label):
                   for c, h in enumerate(ARROW))
     t = (f'<text x="28" y="22" font-size="14" fill="#39ff14" stroke="#0f0f1b" stroke-width="4" '
          f'paint-order="stroke">{label}</text>')
-    return svg(420, 32, f'<g class="blink">{tri}</g>{t}', label, bg=False)
+    return svg(28 + len(label) * 14 + 8, 32, f'<g class="blink">{tri}</g>{t}', label, bg=False)
 
 
 def main():
+    readme = open("README.md", encoding="utf-8").read()
     out = [("header", build_header()), ("footer", build_footer()), ("player", build_player())]
     out += [("title-" + slug(t), build_title(t)) for t in TITLES]
     for name, content in out:
-        with open(f"assets/{name}.svg", "w", encoding="utf-8") as fh:
+        with open(f"assets/{name}.svg", "w", encoding="utf-8", newline="\n") as fh:
             fh.write(content)
         print(f"wrote assets/{name}.svg")
     for name, _ in out:
@@ -145,7 +149,14 @@ def main():
         assert 'shape-rendering="crispEdges"' in s
         assert len(s.encode()) <= 100_000, f"{f} too big"
         vw, vh = map(int, root.get("viewBox").split()[2:])
-        for e in root.iter("{http://www.w3.org/2000/svg}text"):
+        ns = "{http://www.w3.org/2000/svg}"
+        if name.startswith("title-"):
+            assert not any(e.get("width") == str(vw) and e.get("height") == str(vh)
+                           for e in root.iter(ns + "rect")), f"{f}: title must be transparent"
+        if name == "player":
+            assert all(int(e.get("x")) + int(e.get("width")) <= vw - 16
+                       for e in root.iter(ns + "rect") if e.get("class") == "seg" or e.get("fill") == "#2a2c3c"), "bar overflows margin"
+        for e in root.iter(ns + "text"):
             w = len(e.text) * int(e.get("font-size"))
             x = int(e.get("x"))
             a = e.get("text-anchor")
@@ -154,6 +165,7 @@ def main():
             assert all(ch in TEXT for ch in e.text), f"{f}: glyph missing from subset"
     assert all(a > b for a, b in zip(ARROW, ARROW[1:])), "arrow must be a right-pointing triangle"
     d = dict(out)
+    assert f'alt="{PLAYER_LABEL[:-1]}"' in readme, "README player alt drifted from aria-label"
     assert "SOFTWARE DEVELOPER" in d["header"]
     assert d["player"].count('class="seg"') == 8 + 6 + 7 + 5
     assert all(len(r) == 16 for r in CAT) and len(CAT) == 16
