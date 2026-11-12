@@ -10,6 +10,9 @@
 
 <div align="center">
   <img src="https://skillicons.dev/icons?i=kotlin,java,ts,js,php,html,css,py,cpp,nextjs,react,vue,vite,tailwind,bootstrap,nodejs,express,nestjs,laravel,ktor,androidstudio,gradle,prisma,supabase,firebase,postgres,mysql,mongodb,sqlite,redis,git,github,githubactions,docker,linux,nginx,aws,gcp,cloudflare,vercel,netlify,vscode,idea,postman,npm,pnpm,bun,figma,notion,jest,vitest,cypress,selenium&perline=9" alt="Skills: Kotlin, Java, TypeScript, JavaScript, PHP, HTML, CSS, Python, C++, Next.js, React, Vue, Vite, Tailwind, Bootstrap, Node.js, Express, NestJS, Laravel, Ktor, Android Studio, Gradle, Prisma, Supabase, Firebase, PostgreSQL, MySQL, MongoDB, SQLite, Redis, Git, GitHub, GitHub Actions, Docker, Linux, Nginx, AWS, Google Cloud, Cloudflare, Vercel, Netlify, VS Code, IntelliJ IDEA, Postman, npm, pnpm, Bun, Figma, Notion, Jest, Vitest, Cypress, Selenium">
+  <br>
+  <img src="https://img.shields.io/badge/Neon-1a1c2c?style=for-the-badge&logo=neon&logoColor=00E599" alt="Neon">
+  <img src="https://img.shields.io/badge/Jira-1a1c2c?style=for-the-badge&logo=jira&logoColor=2684FF" alt="Jira">
 </div>
 
 <h3><img src="assets/title-select-stage.svg" alt="SELECT STAGE" height="32"></h3>
