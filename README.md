@@ -61,7 +61,7 @@
 
 <div align="center">
   <img src="https://github-stats-extended.vercel.app/api/?username=achmf&show_icons=true&icon_color=ffd23f&custom_title=BATTLE%20LOG&hide_border=true&bg_color=1a1c2c&title_color=39ff14&text_color=f4f4f4" alt="GitHub stats" width="49%">
-  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=achmf&layout=compact&custom_title=SKILL%20TREE&hide_border=true&bg_color=1a1c2c&title_color=39ff14&text_color=f4f4f4" alt="Top languages" width="49%">
+  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=achmf&layout=compact&card_width=400&custom_title=SKILL%20TREE&hide_border=true&bg_color=1a1c2c&title_color=39ff14&text_color=f4f4f4" alt="Top languages" width="49%">
   <br>
   <img src="https://streak-stats.demolab.com?user=achmf&hide_border=true&background=1a1c2c&ring=ff3e88&fire=ffd23f&currStreakLabel=39ff14&sideLabels=00e5ff&currStreakNum=f4f4f4&sideNums=f4f4f4&dates=f4f4f4" alt="GitHub streak" width="100%">
 </div>
