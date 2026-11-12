@@ -1,4 +1,4 @@
-name: generate pacman contribution graph
+name: generate profile cards
 
 on:
   schedule:
@@ -19,6 +19,20 @@ jobs:
         with:
           github_user_name: achmf
           games: pacman
+
+      - uses: readme-tools/github-readme-stats-action@v1
+        with:
+          card: stats
+          options: username=achmf&show_icons=true&hide_border=true&bg_color=1a1c2c&title_color=39ff14&text_color=f4f4f4&icon_color=ffd23f&custom_title=PLAYER STATS
+          path: dist/stats.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: readme-tools/github-readme-stats-action@v1
+        with:
+          card: top-langs
+          options: username=achmf&layout=compact&hide_border=true&bg_color=1a1c2c&title_color=39ff14&text_color=f4f4f4&custom_title=SKILL TREE
+          path: dist/top-langs.svg
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: crazy-max/ghaction-github-pages@v4
         with:
