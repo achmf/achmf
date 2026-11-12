@@ -1,0 +1,8 @@
+{
+  "name": "achmf-pacman-api",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "pacman-contribution-graph": "5.5.2"
+  }
+}
