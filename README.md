@@ -3,7 +3,7 @@
 </div>
 
 <div align="center">
-  <img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=16&duration=2500&pause=800&color=39FF14&center=true&vCenter=true&width=700&lines=ANDROID+DEVELOPER;NEXT.JS+%2B+TYPESCRIPT;INFORMATION+SYSTEMS+STUDENT;LEVEL+UP+EVERY+DAY" alt="Typing animation: Android Developer, Next.js and TypeScript, Information Systems Student, Level up every day">
+  <img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=16&duration=2500&pause=800&color=39FF14&center=true&vCenter=true&width=700&lines=ANDROID+DEVELOPER;NEXT.JS+%2B+TYPESCRIPT;INFORMATION+SYSTEMS+STUDENT;LEVEL+UP+EVERY+DAY&background=0F0F1B" alt="Typing animation: Android Developer, Next.js and TypeScript, Information Systems Student, Level up every day">
 </div>
 
 ### ▶ PLAYER 1
