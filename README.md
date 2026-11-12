@@ -9,7 +9,7 @@
 <h3><img src="assets/title-inventory.svg" alt="INVENTORY" height="32"></h3>
 
 <div align="center">
-  <img src="https://skillicons.dev/icons?i=kotlin,androidstudio,ts,nextjs,react,tailwind,php,laravel,java,js,mysql,git,figma&perline=7" alt="Skills: Kotlin, Android Studio, TypeScript, Next.js, React, Tailwind, PHP, Laravel, Java, JavaScript, MySQL, Git, Figma">
+  <img src="https://skillicons.dev/icons?i=kotlin,java,ts,js,php,html,css,py,cpp,nextjs,react,vue,vite,tailwind,bootstrap,nodejs,express,nestjs,laravel,ktor,androidstudio,gradle,prisma,supabase,firebase,postgres,mysql,mongodb,sqlite,redis,git,github,githubactions,docker,linux,nginx,aws,gcp,cloudflare,vercel,netlify,vscode,idea,postman,npm,pnpm,bun,figma,notion,jest,vitest,cypress,selenium&perline=9" alt="Skills: Kotlin, Java, TypeScript, JavaScript, PHP, HTML, CSS, Python, C++, Next.js, React, Vue, Vite, Tailwind, Bootstrap, Node.js, Express, NestJS, Laravel, Ktor, Android Studio, Gradle, Prisma, Supabase, Firebase, PostgreSQL, MySQL, MongoDB, SQLite, Redis, Git, GitHub, GitHub Actions, Docker, Linux, Nginx, AWS, Google Cloud, Cloudflare, Vercel, Netlify, VS Code, IntelliJ IDEA, Postman, npm, pnpm, Bun, Figma, Notion, Jest, Vitest, Cypress, Selenium">
 </div>
 
 <h3><img src="assets/title-select-stage.svg" alt="SELECT STAGE" height="32"></h3>
