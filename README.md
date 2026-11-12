@@ -1,8 +1,4 @@
 <div align="center">
-  <img src="assets/header.svg" alt="ACHMF pixel art header" width="100%">
-</div>
-
-<div align="center">
   <img src="https://readme-typing-svg.demolab.com?font=Press+Start+2P&size=16&duration=2500&pause=800&color=39FF14&center=true&vCenter=true&width=700&lines=SOFTWARE+DEVELOPER;BUILDING+FOR+WEB+%2B+MOBILE;INFORMATION+SYSTEMS+STUDENT;LEVEL+UP+EVERY+DAY&background=0F0F1B" alt="Typing animation: Software Developer, Building for Web + Mobile, Information Systems Student, Level up every day">
 </div>
 
