@@ -66,15 +66,6 @@
   <img src="https://streak-stats.demolab.com?user=achmf&hide_border=true&background=1a1c2c&ring=ff3e88&fire=ffd23f&currStreakLabel=39ff14&sideLabels=00e5ff&currStreakNum=f4f4f4&sideNums=f4f4f4&dates=f4f4f4" alt="GitHub streak" width="100%">
 </div>
 
-### ▶ HIGH SCORE
-
-<div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/pacman-dark.svg">
-    <img src="assets/pacman.svg" alt="Pac-Man eating my contribution graph" width="100%">
-  </picture>
-</div>
-
 ### ▶ CONTINUE?
 
 <div align="center">
