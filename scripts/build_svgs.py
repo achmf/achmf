@@ -118,9 +118,12 @@ def slug(label):
     return "".join(c if c.isalnum() else "-" for c in label.lower()).strip("-")
 
 
+ARROW = (16, 12, 8, 4)
+
+
 def build_title(label):
     tri = "".join(f'<rect x="{c * 4}" y="{16 - h // 2}" width="4" height="{h}" fill="#ffd23f"/>'
-                  for c, h in enumerate((4, 8, 12, 8, 4)))
+                  for c, h in enumerate(ARROW))
     t = (f'<text x="28" y="22" font-size="14" fill="#39ff14" stroke="#0f0f1b" stroke-width="4" '
          f'paint-order="stroke">{label}</text>')
     return svg(420, 32, f'<g class="blink">{tri}</g>{t}', label, bg=False)
@@ -149,6 +152,7 @@ def main():
             lo = x - w if a == "end" else x - w // 2 if a == "middle" else x
             assert 0 <= lo and lo + w <= vw and int(e.get("y")) <= vh, f"{f}: {e.text!r} outside viewBox"
             assert all(ch in TEXT for ch in e.text), f"{f}: glyph missing from subset"
+    assert all(a > b for a, b in zip(ARROW, ARROW[1:])), "arrow must be a right-pointing triangle"
     d = dict(out)
     assert "SOFTWARE DEVELOPER" in d["header"]
     assert d["player"].count('class="seg"') == 8 + 6 + 7 + 5

@@ -5,4 +5,4 @@
 .tw{animation:t 2.4s steps(2) infinite}
 @keyframes t{50%{opacity:.2}}
 @media (prefers-reduced-motion:reduce){.blink,.tw,.seg{animation:none}}
-text{font-family:'P',monospace}</style><g class="blink"><rect x="0" y="14" width="4" height="4" fill="#ffd23f"/><rect x="4" y="12" width="4" height="8" fill="#ffd23f"/><rect x="8" y="10" width="4" height="12" fill="#ffd23f"/><rect x="12" y="12" width="4" height="8" fill="#ffd23f"/><rect x="16" y="14" width="4" height="4" fill="#ffd23f"/></g><text x="28" y="22" font-size="14" fill="#39ff14" stroke="#0f0f1b" stroke-width="4" paint-order="stroke">INVENTORY</text></svg>
+text{font-family:'P',monospace}</style><g class="blink"><rect x="0" y="8" width="4" height="16" fill="#ffd23f"/><rect x="4" y="10" width="4" height="12" fill="#ffd23f"/><rect x="8" y="12" width="4" height="8" fill="#ffd23f"/><rect x="12" y="14" width="4" height="4" fill="#ffd23f"/></g><text x="28" y="22" font-size="14" fill="#39ff14" stroke="#0f0f1b" stroke-width="4" paint-order="stroke">INVENTORY</text></svg>
