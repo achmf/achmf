@@ -26,16 +26,18 @@ CAT = [
 ]
 CSS = """.blink{animation:b 1s steps(1) infinite}
 @keyframes b{50%{opacity:0}}
+.seg{animation:f .2s steps(1) both}
+@keyframes f{from{opacity:0}}
 .tw{animation:t 2.4s steps(2) infinite}
 @keyframes t{50%{opacity:.2}}
-@media (prefers-reduced-motion:reduce){.blink,.tw{animation:none}}
+@media (prefers-reduced-motion:reduce){.blink,.tw,.seg{animation:none}}
 text{font-family:'P',monospace}"""
 BG = "#0f0f1b"
 
 
 def font_face_css(ttf_path, text):
     opts = subset.Options(flavor="woff2", layout_features=[], notdef_outline=True)
-    f = TTFont(ttf_path)
+    f = TTFont(ttf_path, recalcTimestamp=False)
     s = subset.Subsetter(opts)
     s.populate(text=text)
     s.subset(f)
@@ -60,20 +62,23 @@ def stars(n, w, h, seed):
         for _ in range(n))
 
 
-def svg(w, h, body, text):
+def svg(w, h, body, text, bg=True):
     return (f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {w} {h}" width="{w}" height="{h}" '
             f'shape-rendering="crispEdges" role="img" aria-label="{text}">'
             f'<style>{font_face_css(TTF, TEXT)}{CSS}</style>'
-            f'<rect width="{w}" height="{h}" fill="{BG}"/>{body}</svg>')
+            + (f'<rect width="{w}" height="{h}" fill="{BG}"/>' if bg else '') + f'{body}</svg>')
 
 
 H_TXT = [("ACHMF", 230, 120, 40, "#39ff14", ""),
-         ("MOBILE &amp; WEB DEV", 230, 160, 14, "#00e5ff", ""),
+         ("SOFTWARE DEVELOPER", 230, 160, 14, "#00e5ff", ""),
          ("PRESS START", 230, 205, 12, "#ffd23f", ' class="blink"')]
 F_TXT = [("GAME OVER", 420, 55, 28, "#ff3e88", ""),
          ("INSERT COIN TO CONTINUE", 420, 95, 12, "#ffd23f", ' class="blink"')]
-# subset must cover every glyph used (unescape &amp;)
-TEXT = "".join(t for t, *_ in H_TXT + F_TXT).replace("&amp;", "&") + " "
+STATS = [("FRONTEND", 8), ("BACKEND", 6), ("MOBILE", 7), ("UI/UX", 5)]
+TITLES = ["INVENTORY", "SELECT STAGE", "PLAYER STATS", "HIGH SCORE", "CONTINUE?"]
+# subset must cover every glyph of every string used by every builder
+TEXT = "".join(t for t, *_ in H_TXT + F_TXT).replace("&amp;", "&") + "".join(
+    ["ACHMF", "SOFTWARE DEVELOPER", "P1 READY"] + [l for l, _ in STATS] + TITLES) + " "
 
 
 def texts(items, anchor=""):
@@ -83,25 +88,70 @@ def texts(items, anchor=""):
 
 def build_header():
     return svg(840, 240, stars(40, 840, 240, 7) + sprite_rects(CAT, PAL, 60, 56, 8) + texts(H_TXT),
-               "ACHMF - Mobile and Web Dev - Press Start")
+               "ACHMF - Software Developer - Press Start")
 
 
 def build_footer():
     return svg(840, 120, texts(F_TXT, ' text-anchor="middle"'), "Game over - insert coin to continue")
 
 
+def build_player():
+    r = lambda x, y, w, h, c, cls="": f'<rect{cls} x="{x}" y="{y}" width="{w}" height="{h}" fill="{c}"/>'
+    b = r(40, 30, 200, 200, "#39ff14") + r(44, 34, 192, 192, "#1a1c2c") + sprite_rects(CAT, PAL, 60, 50, 10)
+    cur = "".join(r(x, y, 16, 4, "#ffd23f") + r(x if dx < 0 else x + 12, y if dy < 0 else y - 12, 4, 16, "#ffd23f")
+                  for x, y, dx, dy in ((32, 22, -1, -1), (232, 22, 1, -1), (32, 234, -1, 1), (232, 234, 1, 1)))
+    b += f'<g class="blink">{cur}</g>'
+    b += texts([("ACHMF", 280, 70, 28, "#39ff14", ""), ("SOFTWARE DEVELOPER", 280, 100, 12, "#00e5ff", "")])
+    for row, (label, n) in enumerate(STATS):
+        y = 135 + row * 25
+        b += texts([(label, 280, y, 10, "#f4f4f4", "")])
+        for i in range(10):
+            x = 420 + i * 24
+            b += (f'<rect class="seg" x="{x}" y="{y - 11}" width="20" height="12" fill="#ff3e88" '
+                  f'style="animation-delay:{row * 0.15 + i * 0.08:.2f}s"/>' if i < n
+                  else r(x, y - 11, 20, 12, "#2a2c3c"))
+    b += texts([("P1 READY", 800, 240, 10, "#ffd23f", ' class="blink"')], ' text-anchor="end"')
+    return svg(840, 260, b, "Player 1: ACHMF, Software Developer. Frontend 8, Backend 6, Mobile 7, UI/UX 5 of 10.")
+
+
+def slug(label):
+    return "".join(c if c.isalnum() else "-" for c in label.lower()).strip("-")
+
+
+def build_title(label):
+    tri = "".join(f'<rect x="{c * 4}" y="{16 - h // 2}" width="4" height="{h}" fill="#ffd23f"/>'
+                  for c, h in enumerate((4, 8, 12, 8, 4)))
+    t = (f'<text x="28" y="22" font-size="14" fill="#39ff14" stroke="#0f0f1b" stroke-width="4" '
+         f'paint-order="stroke">{label}</text>')
+    return svg(420, 32, f'<g class="blink">{tri}</g>{t}', label, bg=False)
+
+
 def main():
-    for name, fn in (("header", build_header), ("footer", build_footer)):
+    out = [("header", build_header()), ("footer", build_footer()), ("player", build_player())]
+    out += [("title-" + slug(t), build_title(t)) for t in TITLES]
+    for name, content in out:
         with open(f"assets/{name}.svg", "w", encoding="utf-8") as fh:
-            fh.write(fn())
+            fh.write(content)
         print(f"wrote assets/{name}.svg")
-    for f in ("assets/header.svg", "assets/footer.svg"):
+    for name, _ in out:
+        f = f"assets/{name}.svg"
         s = open(f, encoding="utf-8").read()
-        ET.fromstring(s)
+        root = ET.fromstring(s)
         assert "data:font/woff2;base64," in s
-        assert "<script" not in s and "foreignObject" not in s
+        assert "<script" not in s and "foreignObject" not in s and "href" not in s
         assert 'shape-rendering="crispEdges"' in s
         assert len(s.encode()) <= 100_000, f"{f} too big"
+        vw, vh = map(int, root.get("viewBox").split()[2:])
+        for e in root.iter("{http://www.w3.org/2000/svg}text"):
+            w = len(e.text) * int(e.get("font-size"))
+            x = int(e.get("x"))
+            a = e.get("text-anchor")
+            lo = x - w if a == "end" else x - w // 2 if a == "middle" else x
+            assert 0 <= lo and lo + w <= vw and int(e.get("y")) <= vh, f"{f}: {e.text!r} outside viewBox"
+            assert all(ch in TEXT for ch in e.text), f"{f}: glyph missing from subset"
+    d = dict(out)
+    assert "SOFTWARE DEVELOPER" in d["header"]
+    assert d["player"].count('class="seg"') == 8 + 6 + 7 + 5
     assert all(len(r) == 16 for r in CAT) and len(CAT) == 16
 
 
