@@ -1,0 +1,5 @@
+{
+  "name": "stats-api",
+  "private": true,
+  "type": "module"
+}
