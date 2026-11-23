@@ -11,10 +11,10 @@ W, H = 800, 240
 GX = 520  # dot grid starts here
 CSS = """text{font-family:'IM',sans-serif;font-weight:500}
 .n{font-family:'IB',sans-serif;font-weight:700}
-.in{opacity:0;animation:in .6s ease-out forwards}
+.in{animation:in .6s ease-out both}
 @keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.bar{transform:scaleX(0);transform-origin:48px 0;animation:bar .5s ease-out .45s forwards}
-@keyframes bar{to{transform:scaleX(1)}}
+.bar{transform-origin:48px 0;animation:bar .5s ease-out .45s both}
+@keyframes bar{from{transform:scaleX(0)}to{transform:scaleX(1)}}
 @media (prefers-reduced-motion:reduce){.in,.bar{animation:none;opacity:1;transform:none}}"""
 
 
