@@ -35,6 +35,12 @@ test("streak: today empty counts from yesterday", () => {
   assert.equal(s.repos, 9);
 });
 
+test("total adds private (restricted) contributions", () => {
+  const f = fixture(base);
+  f.user.contributionsCollection.restrictedContributionsCount = 567;
+  assert.equal(summarize(f, TODAY).total, 123 + 567);
+});
+
 test("streak: today active includes today", () => {
   const s = summarize(fixture([3, ...base.slice(1)]), TODAY);
   assert.equal(s.current, 5);

@@ -35,7 +35,9 @@ export function summarize(data, today = new Date()) {
   const langs = top.map(([name, l]) => ({ name, color: l.color, pct: Math.round((l.size / sum) * 100) }));
   if (langs.length) langs[0].pct += 100 - langs.reduce((a, l) => a + l.pct, 0); // rounding drift
 
-  return { total: cal.totalContributions, current, longest, repos: u.repositories.totalCount, last30, langs };
+  // calendar excludes private contributions the viewer can't see; GitHub exposes their count separately
+  const total = cal.totalContributions + (u.contributionsCollection.restrictedContributionsCount ?? 0);
+  return { total, current, longest, repos: u.repositories.totalCount, last30, langs };
 }
 
 const head = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 360" width="800" height="360" role="img" aria-label="GitHub stats">`;

@@ -1,7 +1,7 @@
 import { summarize, renderSvg, errorSvg } from "../render.js";
 
 const QUERY = `query { user(login:"achmf") {
-  contributionsCollection { contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } } }
+  contributionsCollection { restrictedContributionsCount contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } } }
   repositories(ownerAffiliations:OWNER, isFork:false, privacy:PUBLIC, first:100) {
     totalCount nodes { languages(first:10, orderBy:{field:SIZE, direction:DESC}) { edges { size node { name color } } } }
   } } }`;
