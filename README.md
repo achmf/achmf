@@ -1,12 +1,11 @@
 <img src="assets/banner.svg" alt="achmf, Software Developer" width="100%">
 
-Software developer building web and mobile products, from database to UI. Information Systems student at UPN Veteran Jakarta.
+Software developer building web and mobile products, from database to UI.
 
 ## Currently
 
 - Building **KostaHub**, a farm management web app (Next.js, Prisma).
 - Rebuilding **reddog.co.id** with Next.js and Supabase.
-- Studying Information Systems at UPN Veteran Jakarta.
 
 ## Tech Stack
 
