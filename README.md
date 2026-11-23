@@ -2,11 +2,6 @@
 
 Software developer building web and mobile products, from database to UI.
 
-## Currently
-
-- Building **KostaHub**, a farm management web app (Next.js, Prisma).
-- Rebuilding **reddog.co.id** with Next.js and Supabase.
-
 ## Tech Stack
 
 **Languages**<br>
@@ -35,28 +30,14 @@ Software developer building web and mobile products, from database to UI.
 **Testing**<br>
 <img src="https://skillicons.dev/icons?i=jest,vitest,cypress,selenium&theme=dark" alt="Jest, Vitest, Cypress, Selenium">
 
-## Featured Projects
-
-<div align="center">
-  <a href="https://github.com/achmf/KostaHub"><img src="https://github-stats-extended.vercel.app/api/pin/?username=achmf&repo=KostaHub&bg_color=0d1117&title_color=58a6ff&text_color=c9d1d9&icon_color=facc15&border_color=30363d" alt="KostaHub" width="49%"></a>
-  <a href="https://github.com/achmf/femlife"><img src="https://github-stats-extended.vercel.app/api/pin/?username=achmf&repo=femlife&bg_color=0d1117&title_color=58a6ff&text_color=c9d1d9&icon_color=facc15&border_color=30363d" alt="femlife" width="49%"></a>
-  <br>
-  <a href="https://github.com/achmf/flavorize"><img src="https://github-stats-extended.vercel.app/api/pin/?username=achmf&repo=flavorize&bg_color=0d1117&title_color=58a6ff&text_color=c9d1d9&icon_color=facc15&border_color=30363d" alt="flavorize" width="49%"></a>
-  <a href="https://github.com/achmf/reddog-next"><img src="https://github-stats-extended.vercel.app/api/pin/?username=achmf&repo=reddog-next&bg_color=0d1117&title_color=58a6ff&text_color=c9d1d9&icon_color=facc15&border_color=30363d" alt="reddog-next" width="49%"></a>
-</div>
-
 ## GitHub Stats
 
 <div align="center">
-  <img src="https://github-stats-extended.vercel.app/api/?username=achmf&show_icons=true&hide=stars,issues,contribs&icon_color=facc15&border_color=30363d&bg_color=0d1117&title_color=58a6ff&text_color=c9d1d9" alt="GitHub stats" width="49%">
-  <img src="https://github-stats-extended.vercel.app/api/top-langs/?username=achmf&layout=compact&card_width=500&custom_title=Top%20Languages&border_color=30363d&bg_color=0d1117&title_color=58a6ff&text_color=c9d1d9" alt="Top languages" width="49%">
-  <br>
-  <img src="https://streak-stats.demolab.com?user=achmf&background=0d1117&ring=facc15&fire=facc15&currStreakLabel=58a6ff&sideLabels=58a6ff&currStreakNum=f0f6fc&sideNums=f0f6fc&dates=8b949e&border=30363d" alt="GitHub streak" width="49%">
+  <img src="https://achmf-stats.vercel.app/api/stats" alt="GitHub stats for achmf: contributions, streaks, recent activity and top languages" width="100%">
 </div>
 
 ## Contact
 
-<a href="https://www.linkedin.com/in/achmf/"><img src="https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-<a href="mailto:farizi1412@gmail.com"><img src="https://img.shields.io/badge/Email-EA4335?style=for-the-badge&logo=gmail&logoColor=white" alt="Email"></a>
-<a href="https://achmf.vercel.app/"><img src="https://img.shields.io/badge/Portfolio-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Portfolio"></a>
-<a href="https://www.instagram.com/achmf_/"><img src="https://img.shields.io/badge/Instagram-E4405F?style=for-the-badge&logo=instagram&logoColor=white" alt="Instagram"></a>
+<div align="center">
+  <a href="https://www.linkedin.com/in/achmf/"><img src="assets/contact-linkedin.svg" width="56" alt="LinkedIn"></a>&nbsp;&nbsp;<a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=farizi1412@gmail.com"><img src="assets/contact-email.svg" width="56" alt="Email"></a>&nbsp;&nbsp;<a href="https://achmf.vercel.app/"><img src="assets/contact-portfolio.svg" width="56" alt="Portfolio"></a>&nbsp;&nbsp;<a href="https://www.instagram.com/achmf_/"><img src="assets/contact-instagram.svg" width="56" alt="Instagram"></a>
+</div>
