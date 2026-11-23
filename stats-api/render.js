@@ -47,14 +47,14 @@ export function errorSvg() {
 }
 
 export function renderSvg(s) {
-  const css = `${fonts}text{font-family:Inter,sans-serif}.n{font-size:36px;font-weight:700;fill:#f0f6fc}.l{font-size:17px;font-weight:500;fill:${MUTED}}` +
+  const css = `${fonts}text{font-family:Inter,sans-serif}.n{font-size:36px;font-weight:700}.l{font-size:17px;font-weight:500;fill:${MUTED}}` +
     `.b,.g{transform-box:fill-box;animation-fill-mode:both;animation-duration:.6s;animation-timing-function:ease-out}` +
     `.b{transform-origin:bottom;animation-name:up}.g{transform-origin:left;animation-name:wide}` +
     `@keyframes up{from{transform:scaleY(0)}to{transform:scaleY(1)}}@keyframes wide{from{transform:scaleX(0)}to{transform:scaleX(1)}}` +
     `@media (prefers-reduced-motion:reduce){.b,.g{animation:none}}`;
 
   const metrics = [[s.total, "Contributions (year)", "#f0f6fc"], [s.current, "Current streak (days)", "#facc15"], [s.longest, "Longest streak (days)", "#f0f6fc"], [s.repos, "Public repos", "#f0f6fc"]]
-    .map(([v, label, c], i) => `<text class="n" x="${100 + i * 200}" y="78" text-anchor="middle" font-size="36" font-weight="700" fill="${c}">${v}</text><text class="l" x="${100 + i * 200}" y="102" text-anchor="middle" font-size="17" font-weight="500">${label}</text>`)
+    .map(([v, label, c], i) => `<text class="n" x="${100 + i * 200}" y="78" text-anchor="middle" font-size="36" font-weight="700" fill="${c}">${v.toLocaleString("en-US")}</text><text class="l" x="${100 + i * 200}" y="102" text-anchor="middle" font-size="17" font-weight="500">${label}</text>`)
     .join("");
 
   const max = Math.max(...s.last30);

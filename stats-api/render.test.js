@@ -80,3 +80,13 @@ test("errorSvg is generic", () => {
   assert.match(e, /Stats unavailable/);
   assert.doesNotMatch(e, /<script/);
 });
+
+test("streak number is yellow (no CSS fill override) and thousands are separated", () => {
+  const f = fixture(base);
+  f.user.contributionsCollection.contributionCalendar.totalContributions = 1234;
+  const svg = renderSvg(summarize(f, TODAY));
+  assert.doesNotMatch(svg.match(/\.n\{[^}]*\}/)[0], /fill:/);
+  assert.match(svg, /<text class="n"[^>]*fill="#facc15"[^>]*>4<\/text>/);
+  assert.equal((svg.match(/<text class="n"[^>]*fill="#f0f6fc"/g) || []).length, 3);
+  assert.match(svg, />1,234</);
+});
