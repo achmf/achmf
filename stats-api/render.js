@@ -5,6 +5,26 @@ const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&
 const dayStr = (d) => d.toISOString().slice(0, 10);
 const ago = (today, n) => dayStr(new Date(today.getTime() - n * 864e5));
 
+// Public profile calendar (github.com/users/<u>/contributions) includes private counts the API hides.
+// shortcut: scrapes GitHub's HTML, returns null if markup changes so the caller falls back to GraphQL.
+export function parseCalendar(html) {
+  const total = html.match(/([\d,]+)\s+contributions?\s+in the last year/);
+  const dates = new Map();
+  for (const [td] of html.matchAll(/<td\b[^>]*ContributionCalendar-day[^>]*>/g)) {
+    const date = td.match(/data-date="(\d{4}-\d{2}-\d{2})"/), id = td.match(/\bid="([^"]+)"/);
+    if (date && id) dates.set(id[1], date[1]);
+  }
+  const days = [];
+  for (const [, id, text] of html.matchAll(/<tool-tip\b[^>]*\bfor="([^"]+)"[^>]*>([^<]*)<\/tool-tip>/g)) {
+    if (!dates.has(id)) continue;
+    const n = text.match(/^([\d,]+) contributions?/);
+    days.push({ date: dates.get(id), contributionCount: n ? Number(n[1].replace(/,/g, "")) : 0 });
+  }
+  if (!total || !days.length) return null;
+  days.sort((a, b) => (a.date < b.date ? -1 : 1));
+  return { totalContributions: Number(total[1].replace(/,/g, "")), weeks: [{ contributionDays: days }] };
+}
+
 export function summarize(data, today = new Date()) {
   const u = data.user;
   const cal = u.contributionsCollection.contributionCalendar;

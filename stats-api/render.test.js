@@ -1,6 +1,6 @@
 import test from "node:test";
 import assert from "node:assert/strict";
-import { summarize, renderSvg, errorSvg } from "./render.js";
+import { summarize, renderSvg, errorSvg, parseCalendar } from "./render.js";
 
 const TODAY = new Date("2026-11-23T12:00:00Z");
 const iso = (n) => new Date(TODAY.getTime() - n * 864e5).toISOString().slice(0, 10);
@@ -95,4 +95,24 @@ test("streak number is yellow (no CSS fill override) and thousands are separated
   assert.match(svg, /<text class="n"[^>]*fill="#facc15"[^>]*>4<\/text>/);
   assert.equal((svg.match(/<text class="n"[^>]*fill="#f0f6fc"/g) || []).length, 3);
   assert.match(svg, />1,234</);
+});
+
+test("parseCalendar reads public profile calendar incl. private counts", () => {
+  const html = `<h2>1,038
+      contributions
+        in the last year</h2>
+<td data-date="2026-11-22" id="contribution-day-component-0-52" class="ContributionCalendar-day"></td>
+<td data-date="2026-11-23" id="contribution-day-component-1-52" class="ContributionCalendar-day"></td>
+<tool-tip for="contribution-day-component-0-52" class="sr-only">No contributions on November 22nd.</tool-tip>
+<tool-tip for="contribution-day-component-1-52" class="sr-only">1,204 contributions on November 23rd.</tool-tip>`;
+  const c = parseCalendar(html);
+  assert.equal(c.totalContributions, 1038);
+  assert.deepEqual(c.weeks[0].contributionDays, [
+    { date: "2026-11-22", contributionCount: 0 },
+    { date: "2026-11-23", contributionCount: 1204 },
+  ]);
+});
+
+test("parseCalendar returns null on unexpected markup", () => {
+  assert.equal(parseCalendar("<html>nothing</html>"), null);
 });
