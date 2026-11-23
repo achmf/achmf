@@ -1,4 +1,4 @@
-<img src="assets/banner.svg" alt="achmf, Software Developer, Information Systems at UPN Veteran Jakarta" width="100%">
+<img src="assets/banner.svg" alt="achmf, Software Developer" width="100%">
 
 Software developer building web and mobile products, from database to UI. Information Systems student at UPN Veteran Jakarta.
 
