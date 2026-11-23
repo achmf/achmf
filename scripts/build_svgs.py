@@ -7,17 +7,18 @@ BOLD, MED = "scripts/fonts/Inter-Bold.ttf", "scripts/fonts/Inter-Medium.ttf"
 NAME = "achmf"
 ROLE = "Software Developer"
 SUB = "Information Systems · UPN Veteran Jakarta"
-W, H = 1200, 280
-CSS = """text{font-family:'IM',sans-serif}
-.n{font-family:'IB',sans-serif}
+W, H = 800, 240
+GX = 520  # dot grid starts here
+CSS = """text{font-family:'IM',sans-serif;font-weight:500}
+.n{font-family:'IB',sans-serif;font-weight:700}
 .in{opacity:0;animation:in .6s ease-out forwards}
 @keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
-.bar{transform:scaleX(0);transform-origin:72px 0;animation:bar .5s ease-out .45s forwards}
+.bar{transform:scaleX(0);transform-origin:48px 0;animation:bar .5s ease-out .45s forwards}
 @keyframes bar{to{transform:scaleX(1)}}
 @media (prefers-reduced-motion:reduce){.in,.bar{animation:none;opacity:1;transform:none}}"""
 
 
-def font_face_css(ttf_path, text, family):
+def font_face_css(ttf_path, text, family, weight):
     opts = subset.Options(flavor="woff2", layout_features=[], notdef_outline=True)
     f = TTFont(ttf_path, recalcTimestamp=False)
     s = subset.Subsetter(opts)
@@ -27,7 +28,7 @@ def font_face_css(ttf_path, text, family):
     buf = io.BytesIO()
     f.save(buf)
     b64 = base64.b64encode(buf.getvalue()).decode()
-    return "@font-face{font-family:'%s';src:url(data:font/woff2;base64,%s)}" % (family, b64)
+    return "@font-face{font-family:'%s';font-weight:%d;src:url(data:font/woff2;base64,%s)}" % (family, weight, b64)
 
 
 def text_width(ttf_path, text, size):
@@ -38,18 +39,18 @@ def text_width(ttf_path, text, size):
 
 def build_banner():
     dots = "".join(f'<circle cx="{x}" cy="{y}" r="1.5"/>'
-                   for x in range(772, W - 8, 24) for y in range(20, H - 8, 24))
+                   for x in range(GX + 4, W - 8, 24) for y in range(20, H - 8, 24))
     return (
         f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {W} {H}" width="{W}" height="{H}" '
         f'role="img" aria-label="{NAME} - {ROLE}. {SUB}">'
-        f'<style>{font_face_css(BOLD, NAME, "IB")}{font_face_css(MED, ROLE + SUB, "IM")}{CSS}</style>'
+        f'<style>{font_face_css(BOLD, NAME, "IB", 700)}{font_face_css(MED, ROLE + SUB, "IM", 500)}{CSS}</style>'
         f'<rect width="{W}" height="{H}" fill="#0d1117"/>'
         f'<rect x=".5" y=".5" width="{W - 1}" height="{H - 1}" fill="none" stroke="#30363d"/>'
         f'<g fill="#58a6ff" opacity=".12">{dots}</g>'
-        f'<text class="n in" x="72" y="128" font-size="64" font-weight="700" fill="#f0f6fc">{NAME}</text>'
-        f'<text class="in" x="72" y="176" font-size="26" fill="#58a6ff" style="animation-delay:.15s">{ROLE}</text>'
-        f'<text class="in" x="72" y="214" font-size="16" fill="#8b949e" style="animation-delay:.3s">{SUB}</text>'
-        f'<rect class="bar" x="72" y="146" width="96" height="4" fill="#facc15"/>'
+        f'<text class="n in" x="48" y="110" font-size="64" font-weight="700" fill="#f0f6fc">{NAME}</text>'
+        f'<text class="in" x="48" y="164" font-size="26" font-weight="500" fill="#58a6ff" style="animation-delay:.15s">{ROLE}</text>'
+        f'<text class="in" x="48" y="198" font-size="18" font-weight="500" fill="#8b949e" style="animation-delay:.3s">{SUB}</text>'
+        f'<rect class="bar" x="48" y="128" width="96" height="4" fill="#facc15"/>'
         f'</svg>')
 
 
@@ -67,8 +68,10 @@ def main():
         cmap = TTFont(ttf).getBestCmap()
         assert all(ord(c) in cmap for c in txt), f"glyph missing in {ttf}"
     assert "@media (prefers-reduced-motion:reduce){.in,.bar{" in s
-    assert text_width(BOLD, NAME, 64) <= 760, "name too wide"
-    assert text_width(MED, SUB, 16) <= W - 72 * 2, "subline too wide"
+    assert 48 + text_width(BOLD, NAME, 64) <= GX - 24, "name too wide"
+    assert 48 + text_width(MED, SUB, 18) <= W - 48, "subline too wide"
+    for e in ET.fromstring(s).iter("{http://www.w3.org/2000/svg}text"):
+        assert float(e.get("font-size")) * 343 / W >= 7, "text too small on mobile"
 
 
 if __name__ == "__main__":
