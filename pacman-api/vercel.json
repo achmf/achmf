@@ -1,5 +1,0 @@
-{
-  "functions": {
-    "api/pacman.js": { "maxDuration": 60 }
-  }
-}
